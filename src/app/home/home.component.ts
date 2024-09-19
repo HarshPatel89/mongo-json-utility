@@ -8,6 +8,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { Activity, ActivityJsonObject } from '../models/activity-models';
 import { v4 as uuidv4 } from 'uuid';
 import { Track, TrackJsonObject } from '../models/track-models';
+import { Constants } from '../Constants';
 
 
 @Component({
@@ -72,6 +73,9 @@ export class HomeComponent implements OnInit {
     try {
       // Parse the JSON input from the text area
       const jsonData: ActivityJsonObject = JSON.parse(this.jsonToConvert);
+      jsonData.sport_type = jsonData.type;
+      jsonData.duration_mins = jsonData.elapsed_time * 1000;
+      jsonData.end_date = Constants.getActivityEndTime(jsonData.start_date, jsonData.elapsed_time);
 
       // Generate a new id (using a random number for example)
       const newId = uuidv4();
@@ -99,6 +103,10 @@ export class HomeComponent implements OnInit {
     try {
       // Parse the JSON input from the text area
       const trackData: TrackJsonObject = JSON.parse(this.jsonToConvert);
+      trackData.audio_features = this.jsonToConvert.Features;
+      //debugger;
+      //  this.jsonToConvert =JSON.parse(this.jsonToConvert)
+      //  const trackData: TrackJsonObject = Constants.typeCastTrackJson(this.jsonToConvert);
 
       // Generate a new GUID for the track ID
       const newId = uuidv4();
@@ -130,7 +138,7 @@ export class HomeComponent implements OnInit {
     // Create a link element to trigger the download
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'convertedData.json';  // File name for the downloaded file
+    a.download = `converted-${this.selectedEntity}.json`;  // File name for the downloaded file
     document.body.appendChild(a);  // Append the link to the document
     a.click();  // Programmatically click the link to trigger the download
     document.body.removeChild(a);  // Remove the link from the document

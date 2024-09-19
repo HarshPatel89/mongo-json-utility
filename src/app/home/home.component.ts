@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit {
   jsonToConvert: any;
   convertedJson: any;
   userId: any;
-
+  convertedJsonView: string = '';
 
 
 
@@ -75,7 +75,7 @@ export class HomeComponent implements OnInit {
 
       // Generate a new id (using a random number for example)
       const newId = uuidv4();
-console.log("new uuid :",newId)
+      console.log("new uuid :", newId)
 
       // Create the Activity object
       const activity: Activity = {
@@ -85,9 +85,10 @@ console.log("new uuid :",newId)
         jsonData: jsonData                // The parsed JSON data
       };
 
-      console.log(activity);  
+      console.log(activity);
 
-      this.convertedJson=activity;
+      this.convertedJson = activity;
+      this.convertedJsonView = JSON.stringify(this.convertedJson);
     } catch (error) {
       console.error('Invalid JSON input', error);
     }
@@ -109,8 +110,9 @@ console.log("new uuid :",newId)
         trackData: trackData              // The parsed JSON data
       };
 
-      console.log(track);  
-      this.convertedJson=track;
+      console.log(track);
+      this.convertedJson = track;
+      this.convertedJsonView = JSON.stringify(this.convertedJson);
 
 
     } catch (error) {
@@ -121,10 +123,10 @@ console.log("new uuid :",newId)
   downloadJson() {
     const dataStr = JSON.stringify(this.convertedJson, null, 2); // Convert the JSON object to string with formatting
     const blob = new Blob([dataStr], { type: 'application/json' }); // Create a Blob object with the JSON data
-  
+
     // Create a URL for the blob
     const url = window.URL.createObjectURL(blob);
-  
+
     // Create a link element to trigger the download
     const a = document.createElement('a');
     a.href = url;

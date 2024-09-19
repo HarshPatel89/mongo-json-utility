@@ -20,7 +20,6 @@ export interface TrackJsonObject {
 
 
 export interface Album {
-    available_markets: string[]
     type: string
     album_type: string
     href: string

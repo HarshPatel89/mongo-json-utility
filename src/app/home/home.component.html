@@ -19,14 +19,14 @@
         <div class="col">
             <div class="text-center p-3 border-2  border-round-sm ">
                 <label>Enter Entity Json to Convert :</label>
-                <textarea rows="20" cols="70" pInputTextarea [(ngModel)]="jsonToConvert">
+                <textarea rows="20" cols="70" pInputTextarea [(ngModel)]="jsonToConvert" [disabled]="!selectedEntity">
             </textarea>
             </div>
         </div>
         <div class="col">
             <div class="text-center p-3 border-2  border-round-sm ">
                 <label>Converted Entity Json :</label>
-                <textarea rows="20" cols="70" pInputTextarea [(ngModel)]="convertedJson" disabled>
+                <textarea rows="20" cols="70" pInputTextarea [(ngModel)]="convertedJsonView" disabled>
             </textarea>
             </div>
         </div>

@@ -4,6 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputTextModule } from 'primeng/inputtext';
+import { Activity, ActivityJsonObject } from '../models/activity-models';
+import { v4 as uuidv4 } from 'uuid';
+import { Track, TrackJsonObject } from '../models/track-models';
 
 
 @Component({
@@ -15,7 +19,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     DropdownModule,
     InputTextareaModule,
     ButtonModule,
-
+    InputTextModule,
 
 
   ],
@@ -30,24 +34,13 @@ export class HomeComponent implements OnInit {
       name: 'Activity'
     },
     {
-      id: 2,
-      name: 'ActivityDetail'
-    },
-    {
       id: 3,
       name: 'Track'
-    },
-    // {
-    //   id: 4,
-    //   name:''
-    // },
+    }
   ];
   jsonToConvert: any;
-  convertedJson: any ;
-
-
-
-
+  convertedJson: any;
+  userId: any;
 
 
 
@@ -61,11 +54,86 @@ export class HomeComponent implements OnInit {
 
   }
 
-  convertJson(){
+  convertJson() {
+    //console.log(this.selectedEntity);
+    switch (this.selectedEntity) {
+      case 'Activity':
+        this.convertToActivity();
+        break;
+      case 'Track':
+        this.convertToTrack();
+        break;
+      default:
+        break;
+    }
+  }
 
+  convertToActivity() {
+    try {
+      // Parse the JSON input from the text area
+      const jsonData: ActivityJsonObject = JSON.parse(this.jsonToConvert);
 
+      // Generate a new id (using a random number for example)
+      const newId = uuidv4();
+console.log("new uuid :",newId)
+
+      // Create the Activity object
+      const activity: Activity = {
+        id: newId,                       // Generated ID
+        userId: this.userId,              // User ID from input
+        providerActivityId: jsonData.id,  // Example of setting providerActivityId
+        jsonData: jsonData                // The parsed JSON data
+      };
+
+      console.log(activity);  
+
+      this.convertedJson=activity;
+    } catch (error) {
+      console.error('Invalid JSON input', error);
+    }
   }
 
 
+  convertToTrack() {
+    try {
+      // Parse the JSON input from the text area
+      const trackData: TrackJsonObject = JSON.parse(this.jsonToConvert);
+
+      // Generate a new GUID for the track ID
+      const newId = uuidv4();
+
+      // Create the Track object
+      const track: Track = {
+        id: newId,                       // Generated GUID
+        providerTrackId: trackData.id,    // Use the ID from trackData
+        trackData: trackData              // The parsed JSON data
+      };
+
+      console.log(track);  
+      this.convertedJson=track;
+
+
+    } catch (error) {
+      console.error('Invalid JSON input', error);
+    }
+  }
+
+  downloadJson() {
+    const dataStr = JSON.stringify(this.convertedJson, null, 2); // Convert the JSON object to string with formatting
+    const blob = new Blob([dataStr], { type: 'application/json' }); // Create a Blob object with the JSON data
   
+    // Create a URL for the blob
+    const url = window.URL.createObjectURL(blob);
+  
+    // Create a link element to trigger the download
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'convertedData.json';  // File name for the downloaded file
+    document.body.appendChild(a);  // Append the link to the document
+    a.click();  // Programmatically click the link to trigger the download
+    document.body.removeChild(a);  // Remove the link from the document
+
+    this.convertedJson = null;
+  }
+
 }

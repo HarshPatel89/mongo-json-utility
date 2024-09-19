@@ -6,8 +6,13 @@
 
     <div class="m-3">
         <label for="entity"></label>
-        <p-dropdown [options]="entities" [(ngModel)]="selectedEntity" optionLabel="name"
+        <p-dropdown [options]="entities" [(ngModel)]="selectedEntity" optionValue="name" optionLabel="name"
             placeholder="Select an entity" />
+    </div>
+
+    <div class="m-3" *ngIf="selectedEntity==='Activity'">
+        <label>Enter UserId</label>
+        <input type="text" pInputText [(ngModel)]="userId" />
     </div>
 
     <div class="grid">
@@ -27,10 +32,13 @@
         </div>
     </div>
 
-    <div class="flex justify-content-center">
-        <button pButton pRipple label="Convert" (onClick)="convertJson()"
-        class="p-button-success" [disabled]="!jsonToConvert">
+    <div class="flex justify-content-around">
+        <button pButton pRipple label="Convert" (click)="convertJson()" class="p-button-success"
+            [disabled]="!jsonToConvert">
         </button>
+
+        <p-button label="Download Converted Json" [disabled]="!convertJson" severity="info"
+            (onClick)="downloadJson()" />
     </div>
 
 

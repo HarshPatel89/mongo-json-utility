@@ -1,1 +1,37 @@
-<p>home works!</p>
+<div class="p-2  border-3 border-secondary-500 m-2 surface-overlay font-bold ">
+
+    <div class="m-3">
+        <h3>Convert old JSON structure to new JSON structure </h3>
+    </div>
+
+    <div class="m-3">
+        <label for="entity"></label>
+        <p-dropdown [options]="entities" [(ngModel)]="selectedEntity" optionLabel="name"
+            placeholder="Select an entity" />
+    </div>
+
+    <div class="grid">
+        <div class="col">
+            <div class="text-center p-3 border-2  border-round-sm ">
+                <label>Enter Entity Json to Convert :</label>
+                <textarea rows="20" cols="70" pInputTextarea [(ngModel)]="jsonToConvert">
+            </textarea>
+            </div>
+        </div>
+        <div class="col">
+            <div class="text-center p-3 border-2  border-round-sm ">
+                <label>Converted Entity Json :</label>
+                <textarea rows="20" cols="70" pInputTextarea [(ngModel)]="convertedJson" disabled>
+            </textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex justify-content-center">
+        <button pButton pRipple label="Convert" (onClick)="convertJson()"
+        class="p-button-success" [disabled]="!jsonToConvert">
+        </button>
+    </div>
+
+
+</div>

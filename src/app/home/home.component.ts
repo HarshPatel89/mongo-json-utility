@@ -74,8 +74,9 @@ export class HomeComponent implements OnInit {
       // Parse the JSON input from the text area
       const jsonData: ActivityJsonObject = JSON.parse(this.jsonToConvert);
       jsonData.sport_type = jsonData.type;
-      jsonData.duration_mins = jsonData.elapsed_time * 1000;
+      jsonData.duration_mins = Constants.formatDuration(jsonData.elapsed_time * 1000);
       jsonData.end_date = Constants.getActivityEndTime(jsonData.start_date, jsonData.elapsed_time);
+      jsonData.distance_km = (jsonData.distance/1000);
 
       // Generate a new id (using a random number for example)
       const newId = uuidv4();
@@ -83,10 +84,10 @@ export class HomeComponent implements OnInit {
 
       // Create the Activity object
       const activity: Activity = {
-        id: newId,                       // Generated ID
-        userId: this.userId,              // User ID from input
-        providerActivityId: jsonData.id,  // Example of setting providerActivityId
-        jsonData: jsonData                // The parsed JSON data
+        _id: newId,                       // Generated ID
+        UserId: this.userId,              // User ID from input
+        ProviderActivityId: jsonData.id,  // Example of setting providerActivityId
+        JsonData: jsonData                // The parsed JSON data
       };
 
       console.log(activity);

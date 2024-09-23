@@ -63,6 +63,32 @@ export class Constants {
         return endDateObj.toISOString();
     }
 
+    //To convert duration in ms to minutes
+    public static formatDuration(ms: number): string {
+        let seconds = Math.floor((ms / 1000) % 60);
+        let minutes = Math.floor((ms / (1000 * 60)) % 60);
+        let hours = Math.floor((ms / (1000 * 60 * 60)) % 24);
+
+        let hoursStr = (hours < 10) ? "0" + hours : hours;
+        let minutesStr = (minutes < 10) ? "0" + minutes : minutes;
+        let secondsStr = (seconds < 10) ? "0" + seconds : seconds;
+
+        return hoursStr + ":" + minutesStr + ":" + secondsStr;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }

@@ -1,10 +1,10 @@
 
 
 export interface Activity {
-    id:any
-    userId:any
-    providerActivityId: number
-    jsonData: ActivityJsonObject
+    _id:any
+    UserId:any
+    ProviderActivityId: number
+    JsonData: ActivityJsonObject
 }
 
 

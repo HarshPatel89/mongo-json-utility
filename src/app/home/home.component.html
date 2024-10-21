@@ -4,11 +4,19 @@
         <h3>Convert old JSON structure to new JSON structure </h3>
     </div>
 
-    <div class="m-3">
-        <label for="entity"></label>
-        <p-dropdown [options]="entities" [(ngModel)]="selectedEntity" optionValue="name" optionLabel="name"
-            placeholder="Select an entity"
-            (onChange)="jsonToConvert=null; convertedJson=null; convertedJsonView=''; userId=null" />
+    <div class="flex flex-row">
+        <div class="m-3">
+            <label for="entity"></label>
+            <p-dropdown [options]="entities" [(ngModel)]="selectedEntity" optionValue="name" optionLabel="name"
+                placeholder="Select an entity"
+                (onChange)="jsonToConvert=null; convertedJson=null; convertedJsonView=''; userId=null" />
+        </div>
+
+        <div class="m-3">
+            <p-button label="Transform Tracks" (onClick)="routeToTracksTransform()" routerLinkActive="router-link-active" ]></p-button>
+
+        </div>
+
     </div>
 
     <div class="m-3" *ngIf="selectedEntity==='Activity'">

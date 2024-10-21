@@ -9,6 +9,7 @@ import { Activity, ActivityJsonObject } from '../models/activity-models';
 import { v4 as uuidv4 } from 'uuid';
 import { Track, TrackJsonObject } from '../models/track-models';
 import { Constants } from '../Constants';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -48,11 +49,15 @@ export class HomeComponent implements OnInit {
 
 
   constructor(
-
+    private router: Router
   ) { }
 
   ngOnInit(): void {
 
+  }
+
+  routeToTracksTransform() {
+    this.router.navigate(['transform-tracks']);
   }
 
   convertJson() {
@@ -76,7 +81,7 @@ export class HomeComponent implements OnInit {
       jsonData.sport_type = jsonData.type;
       jsonData.duration_mins = Constants.formatDuration(jsonData.elapsed_time * 1000);
       jsonData.end_date = Constants.getActivityEndTime(jsonData.start_date, jsonData.elapsed_time);
-      jsonData.distance_km = (jsonData.distance/1000);
+      jsonData.distance_km = (jsonData.distance / 1000);
 
       // Generate a new id (using a random number for example)
       const newId = uuidv4();

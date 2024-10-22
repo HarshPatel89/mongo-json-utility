@@ -52,5 +52,7 @@ export interface Album {
   export interface ExternalUrls {
     spotify: string
   }
+
+  
   
   

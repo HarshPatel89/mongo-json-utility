@@ -1,7 +1,14 @@
 import { ActivityJsonObject } from "./models/activity-models";
-import { TrackJsonObject } from "./models/track-models";
+import {  TrackJsonObject } from "./models/track-models";
 
 export class Constants {
+
+    public static spotifyToken : string = '';
+
+    public static trackUrl : string = 'https://api.spotify.com/v1/tracks/';
+    public static audioFeaturesUrl : string = 'https://api.spotify.com/v1/audio-features/';
+
+
 
     public static typeCastActivityJson(activity: any): ActivityJsonObject {
         var activityJson: ActivityJsonObject = {
